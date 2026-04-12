@@ -1,98 +1,135 @@
-import { Image } from 'expo-image';
-import { Platform, StyleSheet } from 'react-native';
+import React from 'react';
+import { StyleSheet, View, ScrollView, Pressable } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import { Text } from 'react-native-paper';
+import { useRouter } from 'expo-router';
+import { Ruler, CircleDollarSign, Activity, Sun, Moon, LucideIcon } from 'lucide-react-native';
+import { ToolCard } from '@/components/ToolCard';
+import { Colors, Spacing } from '@/constants/theme';
+import { useColorScheme, useThemeToggle } from '@/hooks/use-color-scheme';
+import Animated, { FadeInDown } from 'react-native-reanimated';
 
-import { HelloWave } from '@/components/hello-wave';
-import ParallaxScrollView from '@/components/parallax-scroll-view';
-import { ThemedText } from '@/components/themed-text';
-import { ThemedView } from '@/components/themed-view';
-import { Link } from 'expo-router';
+/** Defined at module scope — never re-created on render */
+const TOOLS: { title: string; description: string; icon: LucideIcon; route: string; color: string }[] = [
+  {
+    title: 'Unit Converter',
+    description: 'Convert length, weight, and temperature instantly.',
+    icon: Ruler,
+    route: '/unit-converter',
+    color: '#4F46E5',
+  },
+  {
+    title: 'Currency Converter',
+    description: 'Real-time exchange rates for global currencies.',
+    icon: CircleDollarSign,
+    route: '/currency',
+    color: '#10B981',
+  },
+  {
+    title: 'BMI Calculator',
+    description: 'Calculate your Body Mass Index and health status.',
+    icon: Activity,
+    route: '/health',
+    color: '#F59E0B',
+  },
+];
 
-export default function HomeScreen() {
+export default function DashboardScreen() {
+  const colorScheme = useColorScheme();
+  const theme = Colors[colorScheme ?? 'light'];
+  const router = useRouter();
+  const { toggleTheme } = useThemeToggle();
+
+  const isDark = colorScheme === 'dark';
+
+  const tools = TOOLS;
+
   return (
-    <ParallaxScrollView
-      headerBackgroundColor={{ light: '#A1CEDC', dark: '#1D3D47' }}
-      headerImage={
-        <Image
-          source={require('@/assets/images/partial-react-logo.png')}
-          style={styles.reactLogo}
-        />
-      }>
-      <ThemedView style={styles.titleContainer}>
-        <ThemedText type="title">Welcome!</ThemedText>
-        <HelloWave />
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 1: Try it</ThemedText>
-        <ThemedText>
-          Edit <ThemedText type="defaultSemiBold">app/(tabs)/index.tsx</ThemedText> to see changes.
-          Press{' '}
-          <ThemedText type="defaultSemiBold">
-            {Platform.select({
-              ios: 'cmd + d',
-              android: 'cmd + m',
-              web: 'F12',
-            })}
-          </ThemedText>{' '}
-          to open developer tools.
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <Link href="/modal">
-          <Link.Trigger>
-            <ThemedText type="subtitle">Step 2: Explore</ThemedText>
-          </Link.Trigger>
-          <Link.Preview />
-          <Link.Menu>
-            <Link.MenuAction title="Action" icon="cube" onPress={() => alert('Action pressed')} />
-            <Link.MenuAction
-              title="Share"
-              icon="square.and.arrow.up"
-              onPress={() => alert('Share pressed')}
-            />
-            <Link.Menu title="More" icon="ellipsis">
-              <Link.MenuAction
-                title="Delete"
-                icon="trash"
-                destructive
-                onPress={() => alert('Delete pressed')}
-              />
-            </Link.Menu>
-          </Link.Menu>
-        </Link>
+    <SafeAreaView style={[styles.container, { backgroundColor: theme.background }]}>
+      <ScrollView contentContainerStyle={styles.scrollContent}>
+        <Animated.View entering={FadeInDown.duration(600)} style={styles.header}>
+          <View>
+            <Text style={[styles.greeting, { color: theme.textSecondary }]} variant="labelLarge">
+              OVERVIEW
+            </Text>
+            <Text style={[styles.title, { color: theme.text }]} variant="headlineMedium">
+              Utility Toolkit
+            </Text>
+          </View>
+          <Pressable 
+            onPress={toggleTheme}
+            style={({ pressed }) => [
+              styles.headerBtn, 
+              { backgroundColor: theme.card, borderColor: theme.border, opacity: pressed ? 0.7 : 1 }
+            ]}
+          >
+            {isDark ? <Sun size={20} color={theme.text} /> : <Moon size={20} color={theme.text} />}
+          </Pressable>
+        </Animated.View>
 
-        <ThemedText>
-          {`Tap the Explore tab to learn more about what's included in this starter app.`}
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 3: Get a fresh start</ThemedText>
-        <ThemedText>
-          {`When you're ready, run `}
-          <ThemedText type="defaultSemiBold">npm run reset-project</ThemedText> to get a fresh{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> directory. This will move the current{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> to{' '}
-          <ThemedText type="defaultSemiBold">app-example</ThemedText>.
-        </ThemedText>
-      </ThemedView>
-    </ParallaxScrollView>
+        <View style={styles.toolsGrid}>
+          {tools.map((tool, index) => (
+            <Animated.View 
+              key={tool.route} 
+              entering={FadeInDown.delay(200 + index * 100).duration(600)}
+            >
+              <ToolCard
+                title={tool.title}
+                description={tool.description}
+                icon={tool.icon}
+                color={tool.color}
+                onPress={() => router.push(tool.route as any)}
+              />
+            </Animated.View>
+          ))}
+        </View>
+
+        <View style={[styles.footer, { backgroundColor: theme.card + '50' }]}>
+          <Text style={{ color: theme.textSecondary, textAlign: 'center' }} variant="bodySmall">
+            Mobile Track Stage 0 Task • Clean Design
+          </Text>
+        </View>
+      </ScrollView>
+    </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
-  titleContainer: {
+  container: {
+    flex: 1,
+  },
+  scrollContent: {
+    padding: Spacing.lg,
+    paddingTop: Spacing.xl,
+  },
+  header: {
     flexDirection: 'row',
+    justifyContent: 'space-between',
     alignItems: 'center',
-    gap: 8,
+    marginBottom: Spacing.xl,
   },
-  stepContainer: {
-    gap: 8,
-    marginBottom: 8,
+  greeting: {
+    letterSpacing: 1,
+    textTransform: 'uppercase',
   },
-  reactLogo: {
-    height: 178,
-    width: 290,
-    bottom: 0,
-    left: 0,
-    position: 'absolute',
+  title: {
+    fontWeight: '900',
+  },
+  headerBtn: {
+    width: 44,
+    height: 44,
+    borderRadius: 22,
+    borderWidth: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  toolsGrid: {
+    gap: Spacing.md,
+  },
+  footer: {
+    marginTop: Spacing.xxl,
+    padding: Spacing.md,
+    borderRadius: 12,
   },
 });
+

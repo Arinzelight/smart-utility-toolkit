@@ -10,22 +10,54 @@ const tintColorDark = '#fff';
 
 export const Colors = {
   light: {
-    text: '#11181C',
-    background: '#fff',
-    tint: tintColorLight,
-    icon: '#687076',
-    tabIconDefault: '#687076',
-    tabIconSelected: tintColorLight,
+    primary: '#4F46E5', // Indigo 600
+    secondary: '#10B981', // Emerald 500
+    background: '#F9FAFB',
+    card: '#FFFFFF',
+    text: '#111827',
+    textSecondary: '#6B7280',
+    border: '#E5E7EB',
+    tint: '#4F46E5',
+    icon: '#9CA3AF',
+    tabIconDefault: '#9CA3AF',
+    tabIconSelected: '#4F46E5',
+    error: '#EF4444',
+    success: '#10B981',
   },
   dark: {
-    text: '#ECEDEE',
-    background: '#151718',
-    tint: tintColorDark,
-    icon: '#9BA1A6',
-    tabIconDefault: '#9BA1A6',
-    tabIconSelected: tintColorDark,
+    primary: '#6366F1', // Indigo 500
+    secondary: '#34D399', // Emerald 400
+    background: '#0F172A', // Slate 900
+    card: '#1E293B', // Slate 800
+    text: '#F8FAFC',
+    textSecondary: '#94A3B8',
+    border: '#334155',
+    tint: '#6366F1',
+    icon: '#64748B',
+    tabIconDefault: '#64748B',
+    tabIconSelected: '#6366F1',
+    error: '#F87171',
+    success: '#34D399',
   },
 };
+
+export const Spacing = {
+  xs: 4,
+  sm: 8,
+  md: 16,
+  lg: 24,
+  xl: 32,
+  xxl: 48,
+};
+
+export const Radius = {
+  sm: 4,
+  md: 8,
+  lg: 12,
+  xl: 16,
+  full: 9999,
+};
+
 
 export const Fonts = Platform.select({
   ios: {

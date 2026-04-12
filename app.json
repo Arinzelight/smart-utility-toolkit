@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "toolkit-app",
+    "name": "Smart Utility Toolkit",
     "slug": "toolkit-app",
     "version": "1.0.0",
     "orientation": "portrait",
@@ -18,7 +18,11 @@
         "backgroundImage": "./assets/images/android-icon-background.png",
         "monochromeImage": "./assets/images/android-icon-monochrome.png"
       },
-      "edgeToEdgeEnabled": true,
+      "edgeToEdgeEnabled": false,
+      "navigationBar": {
+        "backgroundColor": "#000000",
+        "barStyle": "light-content"
+      },
       "predictiveBackGestureEnabled": false
     },
     "web": {
