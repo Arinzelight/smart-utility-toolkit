@@ -9,16 +9,22 @@
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.ezinwaharry.toolkitapp"
     },
     "android": {
+      "package": "com.ezinwaharry.toolkitapp",
       "adaptiveIcon": {
         "backgroundColor": "#E6F4FE",
         "foregroundImage": "./assets/images/android-icon-foreground.png",
         "backgroundImage": "./assets/images/android-icon-background.png",
         "monochromeImage": "./assets/images/android-icon-monochrome.png"
       },
-      "edgeToEdgeEnabled": false,
+      "statusBar": {
+        "backgroundColor": "#000000",
+        "barStyle": "light-content",
+        "translucent": true
+      },
       "navigationBar": {
         "backgroundColor": "#000000",
         "barStyle": "light-content"
@@ -47,6 +53,12 @@
     "experiments": {
       "typedRoutes": true,
       "reactCompiler": true
+    },
+    "extra": {
+      "router": {},
+      "eas": {
+        "projectId": "884b76c1-c2fd-4fa4-8e06-31fde2098f14"
+      }
     }
   }
 }
