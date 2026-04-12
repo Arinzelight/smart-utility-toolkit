@@ -1,38 +1,14 @@
-import React from 'react';
-import { StyleSheet, View, ScrollView, Pressable } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
-import { Text } from 'react-native-paper';
-import { useRouter } from 'expo-router';
-import { Ruler, CircleDollarSign, Activity, Sun, Moon, LucideIcon } from 'lucide-react-native';
 import { ToolCard } from '@/components/ToolCard';
 import { Colors, Spacing } from '@/constants/theme';
 import { useColorScheme, useThemeToggle } from '@/hooks/use-color-scheme';
+import { useRouter } from 'expo-router';
+import { Moon, Sun } from 'lucide-react-native';
+import { DASHBOARD_TOOLS } from '@/constants/dashboard-tools';
+import React from 'react';
+import { Pressable, ScrollView, StyleSheet, View } from 'react-native';
+import { Text } from 'react-native-paper';
 import Animated, { FadeInDown } from 'react-native-reanimated';
-
-/** Defined at module scope — never re-created on render */
-const TOOLS: { title: string; description: string; icon: LucideIcon; route: string; color: string }[] = [
-  {
-    title: 'Unit Converter',
-    description: 'Convert length, weight, and temperature instantly.',
-    icon: Ruler,
-    route: '/unit-converter',
-    color: '#4F46E5',
-  },
-  {
-    title: 'Currency Converter',
-    description: 'Real-time exchange rates for global currencies.',
-    icon: CircleDollarSign,
-    route: '/currency',
-    color: '#10B981',
-  },
-  {
-    title: 'BMI Calculator',
-    description: 'Calculate your Body Mass Index and health status.',
-    icon: Activity,
-    route: '/health',
-    color: '#F59E0B',
-  },
-];
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 export default function DashboardScreen() {
   const colorScheme = useColorScheme();
@@ -42,7 +18,10 @@ export default function DashboardScreen() {
 
   const isDark = colorScheme === 'dark';
 
-  const tools = TOOLS;
+  const tools = DASHBOARD_TOOLS.map(tool => ({
+    ...tool,
+    color: theme[tool.themeKey],
+  }));
 
   return (
     <SafeAreaView style={[styles.container, { backgroundColor: theme.background }]}>
@@ -56,10 +35,10 @@ export default function DashboardScreen() {
               Utility Toolkit
             </Text>
           </View>
-          <Pressable 
+          <Pressable
             onPress={toggleTheme}
             style={({ pressed }) => [
-              styles.headerBtn, 
+              styles.headerBtn,
               { backgroundColor: theme.card, borderColor: theme.border, opacity: pressed ? 0.7 : 1 }
             ]}
           >
@@ -69,8 +48,8 @@ export default function DashboardScreen() {
 
         <View style={styles.toolsGrid}>
           {tools.map((tool, index) => (
-            <Animated.View 
-              key={tool.route} 
+            <Animated.View
+              key={tool.route}
               entering={FadeInDown.delay(200 + index * 100).duration(600)}
             >
               <ToolCard
@@ -84,11 +63,7 @@ export default function DashboardScreen() {
           ))}
         </View>
 
-        <View style={[styles.footer, { backgroundColor: theme.card + '50' }]}>
-          <Text style={{ color: theme.textSecondary, textAlign: 'center' }} variant="bodySmall">
-            Mobile Track Stage 0 Task • Clean Design
-          </Text>
-        </View>
+
       </ScrollView>
     </SafeAreaView>
   );

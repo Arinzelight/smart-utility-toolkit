@@ -13,7 +13,7 @@ const FALLBACK_RATES: Record<string, number> = {
 export const useCurrencyConverter = () => {
   const [amount, setAmount] = useState<string>('');
   const [fromCurrency, setFromCurrency] = useState<string>('USD');
-  const [toCurrency, setToCurrency] = useState<string>('EUR');
+  const [toCurrency, setToCurrency] = useState<string>('NGN');
   const [rates, setRates] = useState<Record<string, number>>(FALLBACK_RATES);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);

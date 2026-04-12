@@ -12,6 +12,7 @@ export const Colors = {
   light: {
     primary: '#4F46E5', // Indigo 600
     secondary: '#10B981', // Emerald 500
+    tertiary: '#F59E0B', // Amber 500
     background: '#F9FAFB',
     card: '#FFFFFF',
     text: '#111827',
@@ -23,10 +24,13 @@ export const Colors = {
     tabIconSelected: '#4F46E5',
     error: '#EF4444',
     success: '#10B981',
+    info: '#3B82F6', // Blue 500
+    warning: '#F59E0B', // Amber 500
   },
   dark: {
     primary: '#6366F1', // Indigo 500
     secondary: '#34D399', // Emerald 400
+    tertiary: '#FBBF24', // Amber 400
     background: '#0F172A', // Slate 900
     card: '#1E293B', // Slate 800
     text: '#F8FAFC',
@@ -38,6 +42,8 @@ export const Colors = {
     tabIconSelected: '#6366F1',
     error: '#F87171',
     success: '#34D399',
+    info: '#60A5FA', // Blue 400
+    warning: '#FBBF24', // Amber 400
   },
 };
 

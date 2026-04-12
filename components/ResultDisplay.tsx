@@ -15,10 +15,8 @@ interface ResultDisplayProps {
 
 export const ResultDisplay: React.FC<ResultDisplayProps> = ({ label, value, subValue, color }) => {
   const colorScheme = useColorScheme();
-  
-  const gradientColors = color ?? (colorScheme === 'dark'
-    ? (['#4F46E5', '#312E81'] as const)
-    : (['#6366F1', '#4F46E5'] as const));
+  const theme = Colors[colorScheme ?? 'light'];
+  const gradientColors = color ?? ([theme.primary, theme.tint] as const);
 
   return (
     <Animated.View entering={FadeInUp} style={styles.container}>
@@ -51,11 +49,7 @@ const styles = StyleSheet.create({
     marginVertical: Spacing.lg,
     borderRadius: Radius.xl,
     overflow: 'hidden',
-    elevation: 8,
-    shadowColor: '#4F46E5',
-    shadowOffset: { width: 0, height: 10 },
-    shadowOpacity: 0.3,
-    shadowRadius: 15,
+    elevation: 0,
   },
   gradient: {
     padding: Spacing.xl,

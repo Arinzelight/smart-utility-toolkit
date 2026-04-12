@@ -132,7 +132,7 @@ export default function HealthScreen() {
               label="Your BMI"
               value={result.bmi.toString()}
               subValue={result.category}
-              color={[result.color, result.color + 'AA'] as [string, string]}
+              color={[theme[result.colorMode], theme[result.colorMode] + 'AA']}
             />
             
             <View style={[styles.infoCard, { backgroundColor: theme.card, borderColor: theme.border }]}>
@@ -140,22 +140,22 @@ export default function HealthScreen() {
                 BMI Categories
               </Text>
               <View style={styles.infoRow}>
-                <View style={[styles.dot, { backgroundColor: '#3B82F6' }]} />
+                <View style={[styles.dot, { backgroundColor: theme.info }]} />
                 <Text style={{ color: theme.textSecondary, flex: 1 }}>Underweight</Text>
                 <Text style={{ color: theme.textSecondary }}>{"<"} 18.5</Text>
               </View>
               <View style={styles.infoRow}>
-                <View style={[styles.dot, { backgroundColor: '#10B981' }]} />
+                <View style={[styles.dot, { backgroundColor: theme.success }]} />
                 <Text style={{ color: theme.textSecondary, flex: 1 }}>Normal</Text>
                 <Text style={{ color: theme.textSecondary }}>18.5 – 24.9</Text>
               </View>
               <View style={styles.infoRow}>
-                <View style={[styles.dot, { backgroundColor: '#F59E0B' }]} />
+                <View style={[styles.dot, { backgroundColor: theme.warning }]} />
                 <Text style={{ color: theme.textSecondary, flex: 1 }}>Overweight</Text>
                 <Text style={{ color: theme.textSecondary }}>25.0 – 29.9</Text>
               </View>
               <View style={styles.infoRow}>
-                <View style={[styles.dot, { backgroundColor: '#EF4444' }]} />
+                <View style={[styles.dot, { backgroundColor: theme.error }]} />
                 <Text style={{ color: theme.textSecondary, flex: 1 }}>Obese</Text>
                 <Text style={{ color: theme.textSecondary }}>{">"} 30.0</Text>
               </View>

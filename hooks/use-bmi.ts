@@ -5,7 +5,7 @@ export type BMIUnit = 'metric' | 'imperial';
 export interface BMIResult {
   bmi: number;
   category: string;
-  color: string;
+  colorMode: 'info' | 'success' | 'warning' | 'error';
 }
 
 export const useBMI = () => {
@@ -33,23 +33,23 @@ export const useBMI = () => {
 
     const bmiValue = w / (h * h);
     let category = '';
-    let color = '';
+    let colorMode: 'info' | 'success' | 'warning' | 'error' = 'success';
 
     if (bmiValue < 18.5) {
       category = 'Underweight';
-      color = '#3B82F6'; // Blue
+      colorMode = 'info';
     } else if (bmiValue < 25) {
       category = 'Normal';
-      color = '#10B981'; // Green
+      colorMode = 'success';
     } else if (bmiValue < 30) {
       category = 'Overweight';
-      color = '#F59E0B'; // Orange
+      colorMode = 'warning';
     } else {
       category = 'Obese';
-      color = '#EF4444'; // Red
+      colorMode = 'error';
     }
 
-    return { bmi: parseFloat(bmiValue.toFixed(1)), category, color };
+    return { bmi: parseFloat(bmiValue.toFixed(1)), category, colorMode };
   }, [unit, weight, height, heightFt, heightIn]);
 
   return {

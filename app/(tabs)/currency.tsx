@@ -187,7 +187,7 @@ export default function CurrencyScreen() {
             label={`Value in ${toCurrency}`}
             value={result}
             subValue={loading ? 'Updating rates...' : `1 ${fromCurrency} ≈ ${(parseFloat(result.replace(/,/g, '')) / (parseFloat(amount) || 1)).toFixed(4)} ${toCurrency}`}
-            color={['#10B981', '#059669'] as const}
+            color={[theme.secondary, theme.success] as [string, string]}
           />
         )}
       </ScrollView>

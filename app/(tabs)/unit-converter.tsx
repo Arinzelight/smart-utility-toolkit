@@ -165,7 +165,7 @@ export default function UnitConverterScreen() {
             label="Converted Value"
             value={result}
             subValue={`${toUnit}`}
-            color={['#4F46E5', '#6366F1'] as const}
+            color={[theme.primary, theme.tint] as [string, string]}
           />
         )}
       </ScrollView>
