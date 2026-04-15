@@ -29,6 +29,8 @@ export const DeleteConfirmationModal = ({
       visible={visible}
       transparent={true}
       animationType="none"
+      hardwareAccelerated={true}
+      statusBarTranslucent={true}
       onRequestClose={onClose}
     >
       <View style={styles.overlay}>

@@ -40,6 +40,8 @@ export const TaskModal = ({ visible, onClose, onSave, editTask }: TaskModalProps
       visible={visible}
       transparent={true}
       animationType="slide"
+      hardwareAccelerated={true}
+      statusBarTranslucent={true}
       onRequestClose={onClose}
     >
       <View style={styles.modalOverlay}>
