@@ -1,7 +1,7 @@
 import { Tabs } from 'expo-router';
 import React from 'react';
 import { View, Platform } from 'react-native';
-import { LayoutGrid, Ruler, CircleDollarSign, Activity } from 'lucide-react-native';
+import { LayoutGrid, Ruler, CircleDollarSign, Activity, ListTodo } from 'lucide-react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { HapticTab } from '@/components/haptic-tab';
@@ -41,6 +41,13 @@ export default function TabLayout() {
           options={{
             title: 'Dashboard',
             tabBarIcon: ({ color, size }) => <LayoutGrid size={size} color={color} />,
+          }}
+        />
+        <Tabs.Screen
+          name="tasks"
+          options={{
+            title: 'Tasks',
+            tabBarIcon: ({ color, size }) => <ListTodo size={size} color={color} />,
           }}
         />
         <Tabs.Screen

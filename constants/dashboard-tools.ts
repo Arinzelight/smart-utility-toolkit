@@ -1,11 +1,11 @@
-import { Activity, CircleDollarSign, Ruler, LucideIcon } from 'lucide-react-native';
+import { Activity, CircleDollarSign, Ruler, LucideIcon, ListTodo } from 'lucide-react-native';
 
 export interface Tool {
   title: string;
   description: string;
   icon: LucideIcon;
   route: string;
-  themeKey: 'primary' | 'secondary' | 'tertiary';
+  themeKey: 'primary' | 'secondary' | 'tertiary' | 'info';
 }
 
 export const DASHBOARD_TOOLS: Tool[] = [
@@ -29,5 +29,12 @@ export const DASHBOARD_TOOLS: Tool[] = [
     icon: Activity,
     route: '/health',
     themeKey: 'tertiary',
+  },
+  {
+    title: 'Task Manager',
+    description: 'Track and manage your daily tasks efficiently.',
+    icon: ListTodo,
+    route: '/tasks',
+    themeKey: 'info',
   },
 ];
