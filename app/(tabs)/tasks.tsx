@@ -1,32 +1,26 @@
-import React, { useState } from 'react';
-import { StyleSheet, View, FlatList } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
-import { Text, FAB, ActivityIndicator } from 'react-native-paper';
-import { ListTodo } from 'lucide-react-native';
-import Animated, { FadeIn } from 'react-native-reanimated';
-import { useTasks, Task } from '@/hooks/use-tasks';
-import { TaskItem } from '@/components/TaskItem';
-import { TaskModal } from '@/components/TaskModal';
-import { DeleteConfirmationModal } from '@/components/DeleteConfirmationModal';
-import { Colors, Spacing } from '@/constants/theme';
-import { useColorScheme } from '@/hooks/use-color-scheme';
+import { DeleteConfirmationModal } from "@/components/DeleteConfirmationModal";
+import { TaskItem } from "@/components/TaskItem";
+import { TaskModal } from "@/components/TaskModal";
+import { Colors, Spacing } from "@/constants/theme";
+import { useColorScheme } from "@/hooks/use-color-scheme";
+import { Task, useTasks } from "@/hooks/use-tasks";
+import { ListTodo } from "lucide-react-native";
+import React, { useState } from "react";
+import { FlatList, StyleSheet, View } from "react-native";
+import { ActivityIndicator, FAB, Text } from "react-native-paper";
+import Animated, { FadeIn } from "react-native-reanimated";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function TasksScreen() {
   const colorScheme = useColorScheme();
-  const theme = Colors[colorScheme ?? 'light'];
-  
-  const { 
-    tasks, 
-    isLoading, 
-    addTask, 
-    toggleTask, 
-    deleteTask, 
-    editTask 
-  } = useTasks();
+  const theme = Colors[colorScheme ?? "light"];
+
+  const { tasks, isLoading, addTask, toggleTask, deleteTask, editTask } =
+    useTasks();
 
   const [modalVisible, setModalVisible] = useState(false);
   const [editingTask, setEditingTask] = useState<Task | null>(null);
-  
+
   const [deleteModalVisible, setDeleteModalVisible] = useState(false);
   const [taskToDelete, setTaskToDelete] = useState<string | null>(null);
 
@@ -62,20 +56,28 @@ export default function TasksScreen() {
 
   if (isLoading) {
     return (
-      <View style={[styles.loadingContainer, { backgroundColor: theme.background }]}>
+      <View
+        style={[styles.loadingContainer, { backgroundColor: theme.background }]}
+      >
         <ActivityIndicator color={theme.primary} size="large" />
       </View>
     );
   }
 
   return (
-    <SafeAreaView style={[styles.container, { backgroundColor: theme.background }]}>
+    <SafeAreaView
+      style={[styles.container, { backgroundColor: theme.background }]}
+      edges={['top', 'left', 'right']}
+    >
       <View style={styles.header}>
-        <Text style={[styles.title, { color: theme.text }]} variant="headlineSmall">
+        <Text
+          style={[styles.title, { color: theme.text }]}
+          variant="headlineSmall"
+        >
           My Tasks
         </Text>
         <Text style={{ color: theme.textSecondary }} variant="bodyMedium">
-          {tasks.filter(t => !t.completed).length} items remaining
+          {tasks.filter((t) => !t.completed).length} items remaining
         </Text>
       </View>
 
@@ -92,8 +94,15 @@ export default function TasksScreen() {
           />
         )}
         ListEmptyComponent={
-          <Animated.View entering={FadeIn.delay(300)} style={styles.emptyContainer}>
-            <ListTodo size={64} color={theme.icon} style={{ marginBottom: Spacing.md, opacity: 0.5 }} />
+          <Animated.View
+            entering={FadeIn.delay(300)}
+            style={styles.emptyContainer}
+          >
+            <ListTodo
+              size={64}
+              color={theme.icon}
+              style={{ marginBottom: Spacing.md, opacity: 0.5 }}
+            />
             <Text variant="titleMedium" style={{ color: theme.textSecondary }}>
               No tasks yet. Tap + to add one!
             </Text>
@@ -130,15 +139,15 @@ const styles = StyleSheet.create({
   },
   loadingContainer: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
   },
   header: {
     padding: Spacing.lg,
     paddingBottom: Spacing.md,
   },
   title: {
-    fontWeight: '800',
+    fontWeight: "800",
   },
   listContent: {
     padding: Spacing.lg,
@@ -147,12 +156,12 @@ const styles = StyleSheet.create({
   },
   emptyContainer: {
     flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
     marginTop: 100,
   },
   fab: {
-    position: 'absolute',
+    position: "absolute",
     margin: Spacing.lg,
     right: 0,
     bottom: 0,

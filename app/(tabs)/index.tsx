@@ -1,37 +1,49 @@
-import { ToolCard } from '@/components/ToolCard';
-import { Colors, Spacing } from '@/constants/theme';
-import { useColorScheme, useThemeToggle } from '@/hooks/use-color-scheme';
-import { useRouter } from 'expo-router';
-import { Moon, Sun } from 'lucide-react-native';
-import { DASHBOARD_TOOLS } from '@/constants/dashboard-tools';
-import React from 'react';
-import { Pressable, ScrollView, StyleSheet, View } from 'react-native';
-import { Text } from 'react-native-paper';
-import Animated, { FadeInDown } from 'react-native-reanimated';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import { ToolCard } from "@/components/ToolCard";
+import { DASHBOARD_TOOLS } from "@/constants/dashboard-tools";
+import { Colors, Spacing } from "@/constants/theme";
+import { useColorScheme, useThemeToggle } from "@/hooks/use-color-scheme";
+import { useRouter } from "expo-router";
+import { Moon, Sun } from "lucide-react-native";
+import React from "react";
+import { Pressable, ScrollView, StyleSheet, View } from "react-native";
+import { Text } from "react-native-paper";
+import Animated, { FadeInDown } from "react-native-reanimated";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function DashboardScreen() {
   const colorScheme = useColorScheme();
-  const theme = Colors[colorScheme ?? 'light'];
+  const theme = Colors[colorScheme ?? "light"];
   const router = useRouter();
   const { toggleTheme } = useThemeToggle();
 
-  const isDark = colorScheme === 'dark';
+  const isDark = colorScheme === "dark";
 
-  const tools = DASHBOARD_TOOLS.map(tool => ({
+  const tools = DASHBOARD_TOOLS.map((tool) => ({
     ...tool,
     color: theme[tool.themeKey],
   }));
 
   return (
-    <SafeAreaView style={[styles.container, { backgroundColor: theme.background }]}>
+    <SafeAreaView
+      style={[styles.container, { backgroundColor: theme.background }]}
+      edges={["top", "left", "right"]}
+    >
       <ScrollView contentContainerStyle={styles.scrollContent}>
-        <Animated.View entering={FadeInDown.duration(600)} style={styles.header}>
+        <Animated.View
+          entering={FadeInDown.duration(600)}
+          style={styles.header}
+        >
           <View>
-            <Text style={[styles.greeting, { color: theme.textSecondary }]} variant="labelLarge">
+            <Text
+              style={[styles.greeting, { color: theme.textSecondary }]}
+              variant="labelLarge"
+            >
               OVERVIEW
             </Text>
-            <Text style={[styles.title, { color: theme.text }]} variant="headlineMedium">
+            <Text
+              style={[styles.title, { color: theme.text }]}
+              variant="headlineMedium"
+            >
               Utility Toolkit
             </Text>
           </View>
@@ -39,10 +51,18 @@ export default function DashboardScreen() {
             onPress={toggleTheme}
             style={({ pressed }) => [
               styles.headerBtn,
-              { backgroundColor: theme.card, borderColor: theme.border, opacity: pressed ? 0.7 : 1 }
+              {
+                backgroundColor: theme.card,
+                borderColor: theme.border,
+                opacity: pressed ? 0.7 : 1,
+              },
             ]}
           >
-            {isDark ? <Sun size={20} color={theme.text} /> : <Moon size={20} color={theme.text} />}
+            {isDark ? (
+              <Sun size={20} color={theme.text} />
+            ) : (
+              <Moon size={20} color={theme.text} />
+            )}
           </Pressable>
         </Animated.View>
 
@@ -62,8 +82,6 @@ export default function DashboardScreen() {
             </Animated.View>
           ))}
         </View>
-
-
       </ScrollView>
     </SafeAreaView>
   );
@@ -78,25 +96,25 @@ const styles = StyleSheet.create({
     paddingTop: Spacing.xl,
   },
   header: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
     marginBottom: Spacing.xl,
   },
   greeting: {
     letterSpacing: 1,
-    textTransform: 'uppercase',
+    textTransform: "uppercase",
   },
   title: {
-    fontWeight: '900',
+    fontWeight: "900",
   },
   headerBtn: {
     width: 44,
     height: 44,
     borderRadius: 22,
     borderWidth: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
   },
   toolsGrid: {
     gap: Spacing.md,
@@ -107,4 +125,3 @@ const styles = StyleSheet.create({
     borderRadius: 12,
   },
 });
-

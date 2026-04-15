@@ -1,16 +1,16 @@
-import React from 'react';
-import { StyleSheet, View, ScrollView } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
-import { Text, TextInput, SegmentedButtons } from 'react-native-paper';
-import { useBMI, BMIUnit } from '@/hooks/use-bmi';
-import { ResultDisplay } from '@/components/ResultDisplay';
-import { Colors, Radius, Spacing } from '@/constants/theme';
-import { useColorScheme } from '@/hooks/use-color-scheme';
-import Animated, { FadeInUp } from 'react-native-reanimated';
+import { ResultDisplay } from "@/components/ResultDisplay";
+import { Colors, Radius, Spacing } from "@/constants/theme";
+import { BMIUnit, useBMI } from "@/hooks/use-bmi";
+import { useColorScheme } from "@/hooks/use-color-scheme";
+import React from "react";
+import { ScrollView, StyleSheet, View } from "react-native";
+import { SegmentedButtons, Text, TextInput } from "react-native-paper";
+import Animated, { FadeInUp } from "react-native-reanimated";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function HealthScreen() {
   const colorScheme = useColorScheme();
-  const theme = Colors[colorScheme ?? 'light'];
+  const theme = Colors[colorScheme ?? "light"];
   const {
     unit,
     setUnit,
@@ -26,10 +26,16 @@ export default function HealthScreen() {
   } = useBMI();
 
   return (
-    <SafeAreaView style={[styles.container, { backgroundColor: theme.background }]}>
+    <SafeAreaView
+      style={[styles.container, { backgroundColor: theme.background }]}
+      edges={['top', 'left', 'right']}
+    >
       <ScrollView contentContainerStyle={styles.scrollContent}>
         <View style={styles.header}>
-          <Text style={[styles.title, { color: theme.text }]} variant="headlineSmall">
+          <Text
+            style={[styles.title, { color: theme.text }]}
+            variant="headlineSmall"
+          >
             BMI Calculator
           </Text>
           <Text style={{ color: theme.textSecondary }} variant="bodySmall">
@@ -38,10 +44,22 @@ export default function HealthScreen() {
         </View>
 
         {/* Info banner — always visible */}
-        <View style={[styles.infoBanner, { backgroundColor: theme.primary + '15', borderColor: theme.primary + '40' }]}>
-          <Text style={[styles.infoBannerText, { color: theme.primary }]} variant="bodySmall">
-            💡 Weight is always entered in <Text style={{ fontWeight: '800' }}>kilograms (kg)</Text>.
-            {'\n'}The toggle below only changes how you enter your height.
+        <View
+          style={[
+            styles.infoBanner,
+            {
+              backgroundColor: theme.primary + "15",
+              borderColor: theme.primary + "40",
+            },
+          ]}
+        >
+          <Text
+            style={[styles.infoBannerText, { color: theme.primary }]}
+            variant="bodySmall"
+          >
+            💡 Weight is always entered in{" "}
+            <Text style={{ fontWeight: "800" }}>kilograms (kg)</Text>.{"\n"}The
+            toggle below only changes how you enter your height.
           </Text>
         </View>
 
@@ -49,14 +67,19 @@ export default function HealthScreen() {
           value={unit}
           onValueChange={(v) => setUnit(v as BMIUnit)}
           buttons={[
-            { value: 'metric', label: 'Height in cm' },
-            { value: 'imperial', label: 'Height in ft / in' },
+            { value: "metric", label: "Height in cm" },
+            { value: "imperial", label: "Height in ft / in" },
           ]}
           style={styles.segmented}
           theme={{ colors: { primary: theme.primary } }}
         />
 
-        <View style={[styles.card, { backgroundColor: theme.card, borderColor: theme.border }]}>
+        <View
+          style={[
+            styles.card,
+            { backgroundColor: theme.card, borderColor: theme.border },
+          ]}
+        >
           {/* Weight — always kg */}
           <View>
             <TextInput
@@ -76,7 +99,7 @@ export default function HealthScreen() {
           </View>
 
           {/* Height — depends on toggle */}
-          {unit === 'metric' ? (
+          {unit === "metric" ? (
             <View>
               <TextInput
                 label="Height"
@@ -124,39 +147,61 @@ export default function HealthScreen() {
           )}
         </View>
 
-
-
         {result && (
           <Animated.View entering={FadeInUp}>
             <ResultDisplay
               label="Your BMI"
               value={result.bmi.toString()}
               subValue={result.category}
-              color={[theme[result.colorMode], theme[result.colorMode] + 'AA']}
+              color={[theme[result.colorMode], theme[result.colorMode] + "AA"]}
             />
-            
-            <View style={[styles.infoCard, { backgroundColor: theme.card, borderColor: theme.border }]}>
-              <Text style={{ color: theme.text, fontWeight: '700', marginBottom: 8 }} variant="titleSmall">
+
+            <View
+              style={[
+                styles.infoCard,
+                { backgroundColor: theme.card, borderColor: theme.border },
+              ]}
+            >
+              <Text
+                style={{
+                  color: theme.text,
+                  fontWeight: "700",
+                  marginBottom: 8,
+                }}
+                variant="titleSmall"
+              >
                 BMI Categories
               </Text>
               <View style={styles.infoRow}>
                 <View style={[styles.dot, { backgroundColor: theme.info }]} />
-                <Text style={{ color: theme.textSecondary, flex: 1 }}>Underweight</Text>
+                <Text style={{ color: theme.textSecondary, flex: 1 }}>
+                  Underweight
+                </Text>
                 <Text style={{ color: theme.textSecondary }}>{"<"} 18.5</Text>
               </View>
               <View style={styles.infoRow}>
-                <View style={[styles.dot, { backgroundColor: theme.success }]} />
-                <Text style={{ color: theme.textSecondary, flex: 1 }}>Normal</Text>
+                <View
+                  style={[styles.dot, { backgroundColor: theme.success }]}
+                />
+                <Text style={{ color: theme.textSecondary, flex: 1 }}>
+                  Normal
+                </Text>
                 <Text style={{ color: theme.textSecondary }}>18.5 – 24.9</Text>
               </View>
               <View style={styles.infoRow}>
-                <View style={[styles.dot, { backgroundColor: theme.warning }]} />
-                <Text style={{ color: theme.textSecondary, flex: 1 }}>Overweight</Text>
+                <View
+                  style={[styles.dot, { backgroundColor: theme.warning }]}
+                />
+                <Text style={{ color: theme.textSecondary, flex: 1 }}>
+                  Overweight
+                </Text>
                 <Text style={{ color: theme.textSecondary }}>25.0 – 29.9</Text>
               </View>
               <View style={styles.infoRow}>
                 <View style={[styles.dot, { backgroundColor: theme.error }]} />
-                <Text style={{ color: theme.textSecondary, flex: 1 }}>Obese</Text>
+                <Text style={{ color: theme.textSecondary, flex: 1 }}>
+                  Obese
+                </Text>
                 <Text style={{ color: theme.textSecondary }}>{">"} 30.0</Text>
               </View>
             </View>
@@ -178,7 +223,7 @@ const styles = StyleSheet.create({
     marginBottom: Spacing.xl,
   },
   title: {
-    fontWeight: '800',
+    fontWeight: "800",
   },
   segmented: {
     marginBottom: Spacing.xl,
@@ -190,10 +235,10 @@ const styles = StyleSheet.create({
     gap: Spacing.md,
   },
   input: {
-    backgroundColor: 'transparent',
+    backgroundColor: "transparent",
   },
   row: {
-    flexDirection: 'row',
+    flexDirection: "row",
     gap: Spacing.md,
   },
   infoBanner: {
@@ -217,8 +262,8 @@ const styles = StyleSheet.create({
     marginTop: Spacing.md,
   },
   infoRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
     gap: Spacing.sm,
     marginBottom: 4,
   },
